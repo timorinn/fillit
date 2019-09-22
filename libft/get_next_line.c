@@ -6,13 +6,28 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 14:25:41 by bford             #+#    #+#             */
-/*   Updated: 2019/09/20 17:51:53 by bford            ###   ########.fr       */
+/*   Updated: 2019/09/22 11:34:45 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
 #include "libft.h"
+
+
+int		join_dup(char **con, char *buff)
+{
+	if (*con)
+	{
+		if (!(*con = ft_strjoinfree(*con, buff)))
+		{
+			return (-1);
+		}
+	}
+	else if (!(*con = ft_strdup(buff)))
+		return (-1);
+	return (0);
+}
 
 int		finish(my_list **lst, char **line, my_list **l_copy)
 {
@@ -57,7 +72,8 @@ int		check(char **con, char **line, my_list **l_copy, my_list **lst)
 	p = ft_strchr(*con, '\n');
 	p2 = *con;
 	*p++ = '\0';
-	*line = ft_strdup(*con);
+	if (!(*line = ft_strdup(*con)))
+		return (-1);
 	if (!(*line) || !(*con = ft_strdup(p)))
 		return (-1);
 	free(p2);
@@ -82,10 +98,14 @@ int		get_next_line(int fd, char **line)
 	while ((t = read(fd, buff, BUFF_SIZE)))
 	{
 		buff[t] = '\0';
+		/*
 		if (lst->content)
 			lst->content = ft_strjoinfree(lst->content, buff);
 		else
 			lst->content = ft_strdup(buff);
+		*/
+		if (join_dup(&(lst->content), buff))
+			return (-1);
 		t = check(&(lst->content), line, &l_copy, &lst);
 		if (t)
 			return (t);
