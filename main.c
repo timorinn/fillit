@@ -6,7 +6,7 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 16:53:04 by bford             #+#    #+#             */
-/*   Updated: 2019/09/22 13:11:40 by bford            ###   ########.fr       */
+/*   Updated: 2019/09/22 15:41:03 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,34 @@
 #include "fillit.h"
 
 #include "./libft/libft.h"
+
+int		val_ini_add(char *s)
+{
+	char *copy;
+	int	i;
+
+	i = 0;
+	copy = s;
+	while (*s && (*s == '#' || *s == '.'))
+		s++;
+
+	if (*s)
+		return (0); // МЫ НАШЛИ В СТРОКЕ НЕ "." и не "#"
+	s = copy;
+	s = ft_strsub(s, ft_strchr(s, '#') - s, ft_strrchr(s, '#') - ft_strchr(s, '#') + 1);
+	//free(copy);
+
+	while (i < 19)
+	{
+		if (!(ft_strcmp(g_array[i], s)))
+		{
+			printf("S = Array[%d]\n", i);
+			return (0);
+		}
+		i++;
+	}
+	return (0);
+}
 
 int		reading_file(int fd)
 {
@@ -39,7 +67,8 @@ int		reading_file(int fd)
 					return (0);
 				if (ft_strlen(s_block) == 16)
 				{
-					printf("%s\n", s_block);
+					val_ini_add(s_block);
+					//printf("%s\n", s_block);
 					free(s_block);
 					s_block = NULL;
 				}
