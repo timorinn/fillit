@@ -6,7 +6,7 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 16:53:04 by bford             #+#    #+#             */
-/*   Updated: 2019/09/22 17:40:30 by bford            ###   ########.fr       */
+/*   Updated: 2019/09/22 18:42:24 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,27 +38,22 @@ int		val_ini_add(char **s)
 	free(copy);
 	while (i < 19 && ft_strcmp(g_array[i], *s)) // ИЩЕМ В МАССИВЕ ПОДХОДЯЩУЮ СТРОКУ
 		i++;
-	if (i < 19)
+	if (i >= 19)
+		return (0);
+	if (!g_l)
 	{
-		if (!g_l)
-		{
-			if(!(g_l = ft_lst_new_f(g_c, i)))
-				return (0);
-			g_c++;
-			return (1);
-		}
-		else
-		{
-			while (g_l->next)
-				g_l = g_l->next;
-			if (!(g_l->next = ft_lst_new_f(g_c, i)))
-				return (0);
-			g_c++;
-			g_l = p;
-			return (1);
-		}
+		if(!(g_l = ft_lst_new_f(g_c, i)))
+			return (0);
+		g_c++;
+		return (1);
 	}
-	return (0);
+	while (g_l->next)
+		g_l = g_l->next;
+	if (!(g_l->next = ft_lst_new_f(g_c, i)))
+		return (0);
+	g_c++;
+	g_l = p;
+	return (1);
 }
 
 int		reading_file(int fd)
@@ -69,7 +64,7 @@ int		reading_file(int fd)
 
 	i = 4;
 	s_block = NULL;
-	while (get_next_line(fd, &new))	//
+	while (get_next_line(fd, &new))
 		if ((ft_strlen(new) == 4 && i) || (ft_strlen(new) == 0 && !i))
 		{   
 			if (ft_strlen(new) == 4)
