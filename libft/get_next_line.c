@@ -6,14 +6,13 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 14:25:41 by bford             #+#    #+#             */
-/*   Updated: 2019/09/22 11:34:45 by bford            ###   ########.fr       */
+/*   Updated: 2019/09/22 17:47:08 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
 #include "libft.h"
-
 
 int		join_dup(char **con, char *buff)
 {
@@ -98,12 +97,6 @@ int		get_next_line(int fd, char **line)
 	while ((t = read(fd, buff, BUFF_SIZE)))
 	{
 		buff[t] = '\0';
-		/*
-		if (lst->content)
-			lst->content = ft_strjoinfree(lst->content, buff);
-		else
-			lst->content = ft_strdup(buff);
-		*/
 		if (join_dup(&(lst->content), buff))
 			return (-1);
 		t = check(&(lst->content), line, &l_copy, &lst);

@@ -6,7 +6,7 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 16:20:54 by bford             #+#    #+#             */
-/*   Updated: 2019/09/22 14:35:30 by bford            ###   ########.fr       */
+/*   Updated: 2019/09/22 16:14:40 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,6 @@ my_list				*ft_lstnewget(int fd);
 char				*ft_strjoinfree(char *s1, char const *s2);
 int					get_next_line(int fd, char **line);
 
-f_list				*ft_lstnew_f(char c, int n);
+f_list				*ft_lst_new_f(char c, int n);
 
 #endif
