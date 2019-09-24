@@ -6,7 +6,7 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 16:20:54 by bford             #+#    #+#             */
-/*   Updated: 2019/09/23 17:32:08 by bford            ###   ########.fr       */
+/*   Updated: 2019/09/24 12:21:12 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,5 @@ int					get_next_line(int fd, char **line);
 f_list				*ft_lst_new_f(char c, int n);
 int					ft_numofc(char *s, int c);
 char				*ft_ptrofc(char *s, int c, int n);
+int					ft_strduporjoin(char **s, char **s2);
 #endif
