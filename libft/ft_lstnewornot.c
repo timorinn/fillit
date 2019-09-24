@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strduporjoin.c                                  :+:      :+:    :+:   */
+/*   ft_lstnewornot.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/24 12:01:58 by bford             #+#    #+#             */
-/*   Updated: 2019/09/24 14:01:42 by bford            ###   ########.fr       */
+/*   Created: 2019/09/24 13:34:44 by bford             #+#    #+#             */
+/*   Updated: 2019/09/24 13:54:40 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strduporjoin(char **s, char **s2)
+int		ft_lstnewornot(t_fil **lst, t_fil **ptr, char c, int i)
 {
-	if (!(*s))
+	if (!(*lst))
 	{
-		if (!(*s = ft_strdup(*s2)))
-			return (0);
+		if (!(*lst = ft_lst_new_f(c, i)))
+			return (-1);
 		return (1);
 	}
-	else if (!(*s = ft_strjoinfree(*s, *s2)))
-		return (0);
+	while ((*lst)->next)
+		*lst = (*lst)->next;
+	if (!((*lst)->next = ft_lst_new_f(c, i)))
+		return (-1);
+	*lst = *ptr;
 	return (1);
 }

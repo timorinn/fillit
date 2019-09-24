@@ -6,7 +6,7 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 17:18:53 by bford             #+#    #+#             */
-/*   Updated: 2019/09/20 17:34:38 by bford            ###   ########.fr       */
+/*   Updated: 2019/09/24 13:56:20 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 #include <string.h>
 #include <stdlib.h>
 
-my_list	*ft_lstnewget(int fd)
+t_gnl	*ft_lstnewget(int fd)
 {
-	my_list	*new;
+	t_gnl	*new;
 
-	if (!(new = (my_list *)malloc(sizeof(my_list) * 1)))
+	if (!(new = (t_gnl *)malloc(sizeof(t_gnl) * 1)))
 		return (NULL);
 	new->content = NULL;
 	new->nfd = fd;

@@ -6,7 +6,7 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 14:25:41 by bford             #+#    #+#             */
-/*   Updated: 2019/09/22 17:47:08 by bford            ###   ########.fr       */
+/*   Updated: 2019/09/24 13:59:18 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		join_dup(char **con, char *buff)
 	return (0);
 }
 
-int		finish(my_list **lst, char **line, my_list **l_copy)
+int		finish(t_gnl **lst, char **line, t_gnl **l_copy)
 {
 	if (!(*lst)->content)
 	{
@@ -44,7 +44,7 @@ int		finish(my_list **lst, char **line, my_list **l_copy)
 	return (1);
 }
 
-int		find_lst(my_list **lst, my_list **l_copy, int fd)
+int		find_lst(t_gnl **lst, t_gnl **l_copy, int fd)
 {
 	if (!(*lst))
 		if (!(*lst = ft_lstnewget(fd)))
@@ -61,7 +61,7 @@ int		find_lst(my_list **lst, my_list **l_copy, int fd)
 	return (1);
 }
 
-int		check(char **con, char **line, my_list **l_copy, my_list **lst)
+int		check(char **con, char **line, t_gnl **l_copy, t_gnl **lst)
 {
 	char	*p;
 	char	*p2;
@@ -82,10 +82,10 @@ int		check(char **con, char **line, my_list **l_copy, my_list **lst)
 
 int		get_next_line(int fd, char **line)
 {
-	static my_list	*lst;
+	static t_gnl	*lst;
 	char			buff[BUFF_SIZE + 1];
 	int				t;
-	my_list			*l_copy;
+	t_gnl			*l_copy;
 
 	if (fd < 0 || !line || read(fd, buff, 0) < 0)
 		return (-1);

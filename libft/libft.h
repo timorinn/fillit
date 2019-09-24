@@ -6,39 +6,37 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 16:20:54 by bford             #+#    #+#             */
-/*   Updated: 2019/09/24 12:21:12 by bford            ###   ########.fr       */
+/*   Updated: 2019/09/24 14:01:27 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
-
 # define BUFF_SIZE 5
 
-typedef struct		s_list
+typedef struct			s_list
 {
-	void			*content;
-	size_t			content_size;
-	struct s_list	*next;
-}					t_list;
+	void				*content;
+	size_t				content_size;
+	struct s_list		*next;
+}						t_list;
 
-typedef struct		m_list
+typedef struct			s_list_gnl
 {
-	int				nfd;
-	char			*content;
-	struct m_list	*next;
-}					my_list;
+	int					nfd;
+	char				*content;
+	struct s_list_gnl	*next;
+}						t_gnl;
 
-typedef struct		fil_list
+typedef struct			s_list_fil
 {
-	char			c;
-	int				n;
-	struct fil_list	*next;
-}					f_list;
+	char				c;
+	int					n;
+	struct s_list_fil	*next;
+}						t_fil;
 
 int					ft_atoi(const char *s);
 size_t				ft_strlen(const char *s);
@@ -100,12 +98,14 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 
-my_list				*ft_lstnewget(int fd);
+t_gnl				*ft_lstnewget(int fd);
 char				*ft_strjoinfree(char *s1, char const *s2);
 int					get_next_line(int fd, char **line);
 
-f_list				*ft_lst_new_f(char c, int n);
+t_fil				*ft_lst_new_f(char c, int n);
 int					ft_numofc(char *s, int c);
 char				*ft_ptrofc(char *s, int c, int n);
 int					ft_strduporjoin(char **s, char **s2);
+int					ft_lstnewornot(t_fil **lst, t_fil **ptr, char c, int i);
+void				ft_make_array_great_again(int *ar, char **s);
 #endif
