@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_min_square.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/09 14:45:29 by bford             #+#    #+#             */
-/*   Updated: 2019/09/25 10:04:24 by bford            ###   ########.fr       */
+/*   Created: 2019/09/25 10:08:53 by bford             #+#    #+#             */
+/*   Updated: 2019/09/25 10:18:12 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_memcmp(const void *s1, const void *s2, size_t n)
+int					ft_min_square(t_fil *lst)
 {
-	size_t			i;
+	int	min;
+	int	x;
 
-	i = 0;
-	while (i < n)
+	x = 0;
+	min = 4;
+	while (lst->next)
 	{
-		if (((unsigned char *)s1)[i] != ((unsigned char *)s2)[i])
-			return ((unsigned char *)s1)[i] - ((unsigned char *)s2)[i];
-		i++;
+		lst = lst->next;
+		min += 4;
 	}
-	return (0);
+	while (x * x < min)
+		x++;
+	return (x);
 }
