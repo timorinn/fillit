@@ -6,7 +6,7 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 16:53:04 by bford             #+#    #+#             */
-/*   Updated: 2019/09/25 18:25:39 by bford            ###   ########.fr       */
+/*   Updated: 2019/09/25 19:44:08 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 #include <fcntl.h>
 #include "fillit.h"
 #include "./libft/libft.h"
+
+void	ft_check_kek(char **m, int x, t_fil *l, int c)
+{
+		*(*m + x) = c;
+		*(*(m + g_a[l->n][0]) + x + g_a[l->n][1]) = c;
+		*(*(m + g_a[l->n][2]) + x + g_a[l->n][3]) = c;
+		*(*(m + g_a[l->n][4]) + x + g_a[l->n][5]) = c;
+}
 
 int		ft_check_borders(t_fil *l, int x, int y, int z)
 {
@@ -26,46 +34,28 @@ int		ft_check_borders(t_fil *l, int x, int y, int z)
 			x + g_a[l->n][5] < z && x + g_a[l->n][5] >= 0);
 }
 
-char **ft_greatmap(char **map, t_fil *l, char c, int z)
+char	**ft_greatmap(char **map, t_fil *l, char c, int z)
 {
 	int		y;
 	int		x;
-	
-	char **cpy;
-
-	cpy = map;
-	while (*map)
-		printf("%s", *map++);
-	printf("\n");
-	map = cpy;
+	char	**cpy;
 
 	y = -1;
 	while (++y < z)
 	{
 		x = -1;
 		while (++x < z)
-			if (map[y][x] == '.' &&
-			ft_check_borders(l, x, y, z) &&
+			if (map[y][x] == '.' && ft_check_borders(l, x, y, z) &&
 			map[y + g_a[l->n][0]][x + g_a[l->n][1]] == '.' &&
 			map[y + g_a[l->n][2]][x + g_a[l->n][3]] == '.' &&
 			map[y + g_a[l->n][4]][x + g_a[l->n][5]] == '.')
 			{
-				map[y][x] = c;
-				map[y + g_a[l->n][0]][x + g_a[l->n][1]] = c;
-				map[y + g_a[l->n][2]][x + g_a[l->n][3]] = c;
-				map[y + g_a[l->n][4]][x + g_a[l->n][5]] = c;
+				ft_check_kek(&(map[y]), x, l, c);
 				if (l->next && (cpy = ft_greatmap(map, l->next, c + 1, z)))
-				{
-					//cpy = ft_greatmap(map, l->next, c + 1, z);
-					//if (cpy)
-						return (cpy);
-				}
-				if (!(l->next))
+					return (cpy);
+				if (!l->next)
 					return (map);
-				map[y][x] = '.';
-				map[y + g_a[l->n][0]][x + g_a[l->n][1]] = '.';
-				map[y + g_a[l->n][2]][x + g_a[l->n][3]] = '.';
-				map[y + g_a[l->n][4]][x + g_a[l->n][5]] = '.';
+				ft_check_kek(&(map[y]), x, l, '.');
 			}
 	}
 	return (NULL);
@@ -101,7 +91,7 @@ int		reading_file(int fd)
 {
 	char	*new;
 	char	*s_block;
-	int 	i;
+	int		i;
 
 	i = 4;
 	s_block = NULL;
@@ -127,9 +117,9 @@ int		reading_file(int fd)
 
 int		main(int argc, char **argv)
 {
-	int result;
-	char **map;
-	int z;
+	int		result;
+	char	**map;
+	int		z;
 
 	if (argc != 2)
 	{
@@ -137,14 +127,17 @@ int		main(int argc, char **argv)
 		return (0);
 	}
 	else
-	{	
+	{
 		if ((result = reading_file(open(argv[1], O_RDONLY))))
 			return (0);
-		map = ft_makemap(z = ft_min_square(g_l));
+		z = ft_min_square(g_l);
+		map = ft_makemap(z);
 		while (!(ft_greatmap(map, g_l, 'A', z)))
 			map = ft_makemap(++z);
+		//ft_check_kek(&(map[1]), 2, g_l, 'Z');
 		while (*map)
 			printf("%s", *map++);
+		
 	}
 	return (0);
 }
