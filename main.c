@@ -6,7 +6,7 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 16:53:04 by bford             #+#    #+#             */
-/*   Updated: 2019/09/25 14:33:43 by bford            ###   ########.fr       */
+/*   Updated: 2019/09/25 16:46:55 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,16 @@
 #include "fillit.h"
 #include "./libft/libft.h"
 
-//int		ft_greatmap(char **map, t_fil *l)
+int		ft_check_borders(t_fil *l, int x, int y, int z)
+{
+	return (y + g_a[l->n][0] < z && y + g_a[l->n][0] >= 0 &&
+			x + g_a[l->n][1] < z && x + g_a[l->n][1] >= 0 &&
+			y + g_a[l->n][2] < z && y + g_a[l->n][2] >= 0 &&
+			x + g_a[l->n][3] < z && x + g_a[l->n][3] >= 0 &&
+			y + g_a[l->n][4] < z && y + g_a[l->n][4] >= 0 &&
+			x + g_a[l->n][5] < z && x + g_a[l->n][5] >= 0);
+}
+
 char **ft_greatmap(char **map, t_fil *l, char c, int z)
 {
 	int		y;
@@ -30,54 +39,39 @@ char **ft_greatmap(char **map, t_fil *l, char c, int z)
 	printf("\n");
 	map = cpy;
 
-	printf("{ 1 }\n");
 	y = 0;
-	while (map[y])
+	while (y < z)
 	{
-		printf("{ 2 }\n");
 		x = 0;
-		while (map[y][x])
+		while (x < z)
 		{
-			printf("{ 3 } x = %d, y = %d\n", x, y);
 			if (map[y][x] == '.' &&
-			y + g_a[l->n][0] < z && y + g_a[l->n][0] >= 0 &&
-			x + g_a[l->n][1] < z && x + g_a[l->n][1] >= 0 &&
-			y + g_a[l->n][2] < z && y + g_a[l->n][2] >= 0 &&
-			x + g_a[l->n][3] < z && x + g_a[l->n][3] >= 0 &&
-			y + g_a[l->n][4] < z && y + g_a[l->n][4] >= 0 &&
-			x + g_a[l->n][5] < z && x + g_a[l->n][5] >= 0 &&
+			ft_check_borders(l, x, y, z) &&
 			map[y + g_a[l->n][0]][x + g_a[l->n][1]] == '.' &&
 			map[y + g_a[l->n][2]][x + g_a[l->n][3]] == '.' &&
 			map[y + g_a[l->n][4]][x + g_a[l->n][5]] == '.')
 			{
-				printf("{ 4 }\n");
 				map[y][x] = c;
 				map[y + g_a[l->n][0]][x + g_a[l->n][1]] = c;
 				map[y + g_a[l->n][2]][x + g_a[l->n][3]] = c;
 				map[y + g_a[l->n][4]][x + g_a[l->n][5]] = c;
 				if (l->next)
 				{
-					printf("{ 5 }\n");
 					cpy = ft_greatmap(map, l->next, c + 1, z);
 					if (cpy)
 						return (cpy);
 				}
 				if (!(l->next))
-				{
-					printf("{ 6 }\n");
 					return (map);
-				}
 				map[y][x] = '.';
 				map[y + g_a[l->n][0]][x + g_a[l->n][1]] = '.';
 				map[y + g_a[l->n][2]][x + g_a[l->n][3]] = '.';
 				map[y + g_a[l->n][4]][x + g_a[l->n][5]] = '.';
-				printf("{ 7 }\n");
 			}
 			x++;
 		}
 		y++;
 	}
-	printf("{ 6 6 6 }\n");
 	return (NULL);
 }
 
@@ -132,12 +126,11 @@ int		reading_file(int fd)
 				i = 4;
 		else
 			return (-1);
-	return (1);
+	return (0);
 }
 
 int		main(int argc, char **argv)
 {
-	int result;
 	char **map;
 	int z;
 
@@ -148,29 +141,13 @@ int		main(int argc, char **argv)
 	}
 	else
 	{	
-		result = reading_file(open(argv[1], O_RDONLY));
-		printf("MIN SQUARE = %d\n", z = ft_min_square(g_l));
-		printf("Z = %d\n", z);
-		map = ft_makemap(z);
-		//ft_greatmap(map, g_l, 'A');
+		if (reading_file(open(argv[1], O_RDONLY)))
+			return (0);
+		map = ft_makemap(z = ft_min_square(g_l));
 		while (!(ft_greatmap(map, g_l, 'A', z)))
 			map = ft_makemap(++z);
 		while (*map)
 			printf("%s", *map++);
-
-		//printf("RESULT = %d\n", result);
-
-		/* вывод карты */
 	}
-	/*
-	if (result == -1)
-		return (0);
-	printf("%c %d\n", g_l->c, g_l->n);
-	while (g_l->next)
-	{
-		g_l = g_l->next;
-		printf("%c %d\n", g_l->c, g_l->n);
-	}
-	*/
 	return (0);
 }
