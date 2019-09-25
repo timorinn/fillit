@@ -6,7 +6,7 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 16:53:04 by bford             #+#    #+#             */
-/*   Updated: 2019/09/25 16:46:55 by bford            ###   ########.fr       */
+/*   Updated: 2019/09/25 18:25:39 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,11 @@ char **ft_greatmap(char **map, t_fil *l, char c, int z)
 	printf("\n");
 	map = cpy;
 
-	y = 0;
-	while (y < z)
+	y = -1;
+	while (++y < z)
 	{
-		x = 0;
-		while (x < z)
-		{
+		x = -1;
+		while (++x < z)
 			if (map[y][x] == '.' &&
 			ft_check_borders(l, x, y, z) &&
 			map[y + g_a[l->n][0]][x + g_a[l->n][1]] == '.' &&
@@ -55,10 +54,10 @@ char **ft_greatmap(char **map, t_fil *l, char c, int z)
 				map[y + g_a[l->n][0]][x + g_a[l->n][1]] = c;
 				map[y + g_a[l->n][2]][x + g_a[l->n][3]] = c;
 				map[y + g_a[l->n][4]][x + g_a[l->n][5]] = c;
-				if (l->next)
+				if (l->next && (cpy = ft_greatmap(map, l->next, c + 1, z)))
 				{
-					cpy = ft_greatmap(map, l->next, c + 1, z);
-					if (cpy)
+					//cpy = ft_greatmap(map, l->next, c + 1, z);
+					//if (cpy)
 						return (cpy);
 				}
 				if (!(l->next))
@@ -68,9 +67,6 @@ char **ft_greatmap(char **map, t_fil *l, char c, int z)
 				map[y + g_a[l->n][2]][x + g_a[l->n][3]] = '.';
 				map[y + g_a[l->n][4]][x + g_a[l->n][5]] = '.';
 			}
-			x++;
-		}
-		y++;
 	}
 	return (NULL);
 }
@@ -131,6 +127,7 @@ int		reading_file(int fd)
 
 int		main(int argc, char **argv)
 {
+	int result;
 	char **map;
 	int z;
 
@@ -141,7 +138,7 @@ int		main(int argc, char **argv)
 	}
 	else
 	{	
-		if (reading_file(open(argv[1], O_RDONLY)))
+		if ((result = reading_file(open(argv[1], O_RDONLY))))
 			return (0);
 		map = ft_makemap(z = ft_min_square(g_l));
 		while (!(ft_greatmap(map, g_l, 'A', z)))
