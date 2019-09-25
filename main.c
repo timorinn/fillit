@@ -6,7 +6,7 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 16:53:04 by bford             #+#    #+#             */
-/*   Updated: 2019/09/25 14:24:52 by bford            ###   ########.fr       */
+/*   Updated: 2019/09/25 14:33:43 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ char **ft_greatmap(char **map, t_fil *l, char c, int z)
 		{
 			printf("{ 3 } x = %d, y = %d\n", x, y);
 			if (map[y][x] == '.' &&
-			y + g_a[l->n][0] < z - 1 && y + g_a[l->n][0] >= 0 &&
-			x + g_a[l->n][1] < z - 1 && x + g_a[l->n][1] >= 0 &&
-			y + g_a[l->n][2] < z - 1 && y + g_a[l->n][2] >= 0 &&
-			x + g_a[l->n][3] < z - 1 && x + g_a[l->n][3] >= 0 &&
-			y + g_a[l->n][4] < z - 1 && y + g_a[l->n][4] >= 0 &&
-			x + g_a[l->n][5] < z - 1 && x + g_a[l->n][5] >= 0 &&
+			y + g_a[l->n][0] < z && y + g_a[l->n][0] >= 0 &&
+			x + g_a[l->n][1] < z && x + g_a[l->n][1] >= 0 &&
+			y + g_a[l->n][2] < z && y + g_a[l->n][2] >= 0 &&
+			x + g_a[l->n][3] < z && x + g_a[l->n][3] >= 0 &&
+			y + g_a[l->n][4] < z && y + g_a[l->n][4] >= 0 &&
+			x + g_a[l->n][5] < z && x + g_a[l->n][5] >= 0 &&
 			map[y + g_a[l->n][0]][x + g_a[l->n][1]] == '.' &&
 			map[y + g_a[l->n][2]][x + g_a[l->n][3]] == '.' &&
 			map[y + g_a[l->n][4]][x + g_a[l->n][5]] == '.')
@@ -150,6 +150,7 @@ int		main(int argc, char **argv)
 	{	
 		result = reading_file(open(argv[1], O_RDONLY));
 		printf("MIN SQUARE = %d\n", z = ft_min_square(g_l));
+		printf("Z = %d\n", z);
 		map = ft_makemap(z);
 		//ft_greatmap(map, g_l, 'A');
 		while (!(ft_greatmap(map, g_l, 'A', z)))
