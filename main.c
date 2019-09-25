@@ -6,11 +6,10 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 16:53:04 by bford             #+#    #+#             */
-/*   Updated: 2019/09/25 19:44:08 by bford            ###   ########.fr       */
+/*   Updated: 2019/09/25 19:55:41 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h> // D E L E T E !
 #include <stdlib.h>
 #include <fcntl.h>
 #include "fillit.h"
@@ -18,10 +17,10 @@
 
 void	ft_check_kek(char **m, int x, t_fil *l, int c)
 {
-		*(*m + x) = c;
-		*(*(m + g_a[l->n][0]) + x + g_a[l->n][1]) = c;
-		*(*(m + g_a[l->n][2]) + x + g_a[l->n][3]) = c;
-		*(*(m + g_a[l->n][4]) + x + g_a[l->n][5]) = c;
+	*(*m + x) = c;
+	*(*(m + g_a[l->n][0]) + x + g_a[l->n][1]) = c;
+	*(*(m + g_a[l->n][2]) + x + g_a[l->n][3]) = c;
+	*(*(m + g_a[l->n][4]) + x + g_a[l->n][5]) = c;
 }
 
 int		ft_check_borders(t_fil *l, int x, int y, int z)
@@ -134,10 +133,8 @@ int		main(int argc, char **argv)
 		map = ft_makemap(z);
 		while (!(ft_greatmap(map, g_l, 'A', z)))
 			map = ft_makemap(++z);
-		//ft_check_kek(&(map[1]), 2, g_l, 'Z');
 		while (*map)
-			printf("%s", *map++);
-		
+			ft_putstr(*map++);
 	}
 	return (0);
 }

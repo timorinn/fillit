@@ -6,38 +6,15 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 10:23:57 by bford             #+#    #+#             */
-/*   Updated: 2019/09/25 12:02:50 by bford            ###   ########.fr       */
+/*   Updated: 2019/09/25 19:54:57 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
 #include <stdlib.h>
 
-#include <stdio.h> // DEL
-
 char	**ft_makemap(int z)
 {
-	/*
-	char	*s;
-	int		i;
-	int		cpy;
-
-	cpy = x + 1;
-	x = (x + 1) * x + 1;
-	i = 0;
-	if (!(s = (char *)malloc(sizeof(char) * x)))
-		return (NULL);
-	s[x] = '\0';
-	while (i < x - 1)
-	{
-		if (!((i + 1) % cpy) && i)
-			s[i] = '\n';
-		else
-			s[i] = '.';
-		i++;
-	}
-	return (s);
-	*/
 	char	**map;
 	int		y;
 	int		x;
@@ -57,5 +34,5 @@ char	**ft_makemap(int z)
 			map[y][x++] = '.';
 		y++;
 	}
-	return (map);	
+	return (map);
 }
