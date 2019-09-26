@@ -6,7 +6,7 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 10:40:46 by bford             #+#    #+#             */
-/*   Updated: 2019/09/26 10:46:31 by bford            ###   ########.fr       */
+/*   Updated: 2019/09/26 10:59:02 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 void	ft_clear_map(char ***map)
 {
-	while (**map)
-		free(**map++);
+	char **cpy;
+
+	cpy = *map;
+	while (*cpy)
+		free(*cpy++);
 	free(*map);
 }

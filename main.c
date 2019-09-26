@@ -6,7 +6,7 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 16:53:04 by bford             #+#    #+#             */
-/*   Updated: 2019/09/26 10:42:54 by bford            ###   ########.fr       */
+/*   Updated: 2019/09/26 11:22:34 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,12 @@ int		ft_init(char **s)
 
 int		reading_file(int fd)
 {
-	char	*new;
-	char	*s_block;
-	int		i;
+	char		*new;
+	char		*s_block;
+	static int	i;
 
-	i = 4;
+	if (!i)
+		i = 4;
 	s_block = NULL;
 	while (get_next_line(fd, &new))
 		if ((ft_strlen(new) == 4 && i--) || (ft_strlen(new) == 0 && !i))
@@ -111,7 +112,7 @@ int		reading_file(int fd)
 				i = 4;
 		else
 			return (-1);
-	return (0);
+	return (i ? -1 : 0);
 }
 
 int		main(int argc, char **argv)
@@ -122,21 +123,21 @@ int		main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_putstr_fd("KAKA9 TO OIIIu6KA\n", 2);
+		ft_putstr_fd("error\n", 2);
 		return (0);
 	}
-	else
+	if ((result = reading_file(open(argv[1], O_RDONLY))))
 	{
-		if ((result = reading_file(open(argv[1], O_RDONLY))))
-			return (0);
-		z = ft_min_square(g_l);
-		if (!(map = ft_makemap(z, &map)))
-			return (-1);
-		while (!(ft_greatmap(map, g_l, 'A', z)))
-			if (!(map = ft_makemap(++z, &map)))
-				return (-1);
-		while (*map)
-			ft_putstr(*map++);
+		ft_putstr("error\n");
+		return (0);
 	}
+	z = ft_min_square(g_l);
+	if (!(map = ft_makemap(z, &map)))
+		return (-1);
+	while (!(ft_greatmap(map, g_l, 'A', z)))
+		if (!(map = ft_makemap(++z, &map)))
+			return (-1);
+	while (*map)
+		ft_putstr(*map++);
 	return (0);
 }
