@@ -6,7 +6,7 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 16:53:04 by bford             #+#    #+#             */
-/*   Updated: 2019/09/25 19:55:41 by bford            ###   ########.fr       */
+/*   Updated: 2019/09/26 10:42:54 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,9 +130,11 @@ int		main(int argc, char **argv)
 		if ((result = reading_file(open(argv[1], O_RDONLY))))
 			return (0);
 		z = ft_min_square(g_l);
-		map = ft_makemap(z);
+		if (!(map = ft_makemap(z, &map)))
+			return (-1);
 		while (!(ft_greatmap(map, g_l, 'A', z)))
-			map = ft_makemap(++z);
+			if (!(map = ft_makemap(++z, &map)))
+				return (-1);
 		while (*map)
 			ft_putstr(*map++);
 	}
