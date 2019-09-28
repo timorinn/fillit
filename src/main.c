@@ -6,11 +6,11 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 16:53:04 by bford             #+#    #+#             */
-/*   Updated: 2019/09/28 14:38:00 by bford            ###   ########.fr       */
+/*   Updated: 2019/09/28 15:28:35 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h> // 
+#include <stdio.h> // 
 
 #include <fcntl.h>
 #include "../includes/fillit.h"
@@ -128,7 +128,6 @@ int		reading_file(int fd)
 	if (!(i = 5) && (fd < 0 || read(fd, buff, 0) < 0))
 		return (-1);
 	while ((r = read(fd, buff, i)) && r == i)
-	{
 		if (i == 5 && (buff[0] == '.' || buff[0] == '#') && (buff[1] == '.'
 		|| buff[1] == '#') && (buff[2] == '.' || buff[2] == '#') &&
 		(buff[3] == '.' || buff[3] == '#') && buff[4] == '\n')
@@ -145,8 +144,7 @@ int		reading_file(int fd)
 		}
 		else if (!(i == 1 && buff[0] == '\n' && (i = 5)))
 			return (-1);
-	}
-	return (r == 0 ? 0 : -1);
+	return (r == 0 && !s_block && i != 5 ? 0 : -1);
 }
 
 int		main(int argc, char **argv)
@@ -158,7 +156,7 @@ int		main(int argc, char **argv)
 	z = open(argv[1], O_RDONLY);
 	if (argc != 2 || z < 0 || (result = reading_file(z)))
 	{
-		ft_putstr_fd("error\n", 2);
+		ft_putstr_fd("error\n", 1);
 		return (0);
 	}
 	z = ft_min_square(g_l);
