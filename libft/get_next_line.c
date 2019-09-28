@@ -6,7 +6,7 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 14:25:41 by bford             #+#    #+#             */
-/*   Updated: 2019/09/24 13:59:18 by bford            ###   ########.fr       */
+/*   Updated: 2019/09/28 12:52:21 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		finish(t_gnl **lst, char **line, t_gnl **l_copy)
 	free((*lst)->content);
 	(*lst)->content = NULL;
 	*lst = *l_copy;
-	return (1);
+	return (0);
 }
 
 int		find_lst(t_gnl **lst, t_gnl **l_copy, int fd)
