@@ -6,7 +6,7 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 16:53:04 by bford             #+#    #+#             */
-/*   Updated: 2019/09/28 14:18:22 by bford            ###   ########.fr       */
+/*   Updated: 2019/09/28 14:38:00 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,36 +124,29 @@ int		reading_file(int fd)
 	int		r;
 	int		i;
 	
+	s_block = NULL;
 	if (!(i = 5) && (fd < 0 || read(fd, buff, 0) < 0))
 		return (-1);
-	write(1, "KEK\n", 4);
-	while ((r = read(fd, buff, i)) == i)
+	while ((r = read(fd, buff, i)) && r == i)
 	{
-		write(1, "KEK1\n", 5);
 		if (i == 5 && (buff[0] == '.' || buff[0] == '#') && (buff[1] == '.'
 		|| buff[1] == '#') && (buff[2] == '.' || buff[2] == '#') &&
 		(buff[3] == '.' || buff[3] == '#') && buff[4] == '\n')
 		{
-			write(1, "KEK2\n", 5);
 			buff[4] = '\0';
 			if (!(ft_strduporjoin(&s_block, buff)))
 				return (-1);
-			write(1, "KEK 3\n", 6);
-			if (ft_strlen(s_block) == 16 && !(i = 1))
+			if (ft_strlen(s_block) == 16 && (i = 1))
 			{
 				if (ft_init(&s_block) == -1)
 					return (-1);
 				ft_strdel(&s_block);
 			}
 		}
-		else if (!(buff[0] == '\n' && i == 1 && (i = 5)))
-		{
-			write(1, "KEK 7\n", 6);
+		else if (!(i == 1 && buff[0] == '\n' && (i = 5)))
 			return (-1);
-		}
 	}
-	return (0);
-
+	return (r == 0 ? 0 : -1);
 }
 
 int		main(int argc, char **argv)

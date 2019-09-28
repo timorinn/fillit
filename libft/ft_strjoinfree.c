@@ -6,9 +6,11 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 17:09:20 by bford             #+#    #+#             */
-/*   Updated: 2019/09/26 18:01:55 by kpsylock         ###   ########.fr       */
+/*   Updated: 2019/09/28 14:26:11 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stdio.h>
 
 #include "libft.h"
 #include <string.h>
