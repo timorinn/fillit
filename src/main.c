@@ -6,7 +6,7 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 16:53:04 by bford             #+#    #+#             */
-/*   Updated: 2019/09/28 15:45:25 by bford            ###   ########.fr       */
+/*   Updated: 2019/09/28 15:56:31 by kpsylock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,10 @@ int		main(int argc, char **argv)
 	z = open(argv[1], O_RDONLY);
 	if (argc != 2 || z < 0 || (result = reading_file(z)))
 	{
-		ft_putstr_fd("error\n", 1);
+		if (argc != 2)
+			ft_putstr_fd("usage: ./fillit file_with_tetraminos\n", 2);
+		else
+			ft_putstr_fd("error\n", 2);
 		return (0);
 	}
 	z = ft_min_square(g_l);
