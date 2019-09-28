@@ -6,11 +6,9 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 16:53:04 by bford             #+#    #+#             */
-/*   Updated: 2019/09/28 15:28:35 by bford            ###   ########.fr       */
+/*   Updated: 2019/09/28 15:45:25 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdio.h> // 
 
 #include <fcntl.h>
 #include "../includes/fillit.h"
@@ -92,55 +90,26 @@ int		ft_init(char **s)
 
 int		reading_file(int fd)
 {
-	/*
-	char		*new;
-	char		*s_block;
-	static int	i;
-
-	if (!i)
-		i = 4;
-	s_block = NULL;
-	while (get_next_line(fd, &new))
-		if ((ft_strlen(new) == 4 && i--) || (ft_strlen(new) == 0 && !i))
-			if (ft_strlen(new) == 4)
-			{
-				if (!(ft_strduporjoin(&s_block, &new)))
-					return (-1);
-				if (ft_strlen(s_block) == 16)
-				{
-					if (ft_init(&s_block) == -1)
-						return (-1);
-					ft_strdel(&s_block);
-				}
-			}
-			else
-				i = 4;
-		else
-			return (-1);
-	return (i ? -1 : 0);
-		*/
 	char	*s_block;
 	char	buff[5];
 	int		r;
 	int		i;
-	
+
 	s_block = NULL;
 	if (!(i = 5) && (fd < 0 || read(fd, buff, 0) < 0))
 		return (-1);
 	while ((r = read(fd, buff, i)) && r == i)
 		if (i == 5 && (buff[0] == '.' || buff[0] == '#') && (buff[1] == '.'
 		|| buff[1] == '#') && (buff[2] == '.' || buff[2] == '#') &&
-		(buff[3] == '.' || buff[3] == '#') && buff[4] == '\n')
+		(buff[3] == '.' || buff[3] == '#') && buff[4] == '\n' &&
+		!(buff[4] = '\0'))
 		{
 			buff[4] = '\0';
 			if (!(ft_strduporjoin(&s_block, buff)))
 				return (-1);
-			if (ft_strlen(s_block) == 16 && (i = 1))
-			{
-				if (ft_init(&s_block) == -1)
-					return (-1);
-				ft_strdel(&s_block);
-			}
+			if ((ft_strlen(s_block) == 16 && (i = 1)) &&
+			(ft_init(&s_block) == -1 || !ft_strdel(&s_block)))
+				return (-1);
 		}
 		else if (!(i == 1 && buff[0] == '\n' && (i = 5)))
 			return (-1);
