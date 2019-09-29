@@ -6,7 +6,7 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 16:53:04 by bford             #+#    #+#             */
-/*   Updated: 2019/09/28 18:01:44 by bford            ###   ########.fr       */
+/*   Updated: 2019/09/29 10:43:54 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,18 @@ int		ft_init(char **s)
 	return (-1);
 }
 
+int		res_of_reading(char **s_block, int r, int i)
+{
+	if (*s_block)
+	{
+		free(*s_block);
+		return (-1);
+	}
+	if (i != 5 && r == 0)
+		return (0);
+	return (-1);
+}
+
 int		reading_file(int fd)
 {
 	char	*s_block;
@@ -113,7 +125,7 @@ int		reading_file(int fd)
 		}
 		else if (!(i == 1 && buff[0] == '\n' && (i = 5)))
 			return (-1);
-	return (r == 0 && !s_block && i != 5 ? 0 : -1);
+	return (res_of_reading(&s_block, r, i));
 }
 
 int		main(int argc, char **argv)
@@ -128,13 +140,19 @@ int		main(int argc, char **argv)
 		ft_putstr_fd("error\n", 1);
 		return (0);
 	}
+	close(z);
 	z = ft_min_square(g_l);
 	if (!(map = ft_makemap(z, &map)))
 		return (-1);
 	while (!(ft_greatmap(map, g_l, 'A', z)))
 		if (!(map = ft_makemap(++z, &map)))
 			return (-1);
-	while (*map)
-		ft_putstr(*map++);
+	z = 0;
+	while (map[z])
+	{
+		ft_putstr(map[z]);
+		free(map[z++]);
+	}
+	free(map);
 	return (0);
 }

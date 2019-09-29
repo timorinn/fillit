@@ -6,7 +6,7 @@
 /*   By: bford <bford@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 10:23:57 by bford             #+#    #+#             */
-/*   Updated: 2019/09/27 19:43:49 by kpsylock         ###   ########.fr       */
+/*   Updated: 2019/09/29 10:18:15 by bford            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ char	**ft_makemap(int z, char ***map)
 	{
 		x = 0;
 		if (!((*map)[y] = (char *)malloc(sizeof(char) * (z + 2))))
+		{
+			ft_clear_map(map);
 			return (NULL);
+		}
 		(*map)[y][z + 1] = '\0';
 		(*map)[y][z] = '\n';
 		while (x < z)
